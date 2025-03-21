@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* From Uiverse.io by mobinkakei */ 
+.MeanButton {
+    width: 200px;
+    height: 70px;
+    background: linear-gradient(to top, #00154c, #12376e, #23487f);
+    color: #fff;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    padding: 3px;
+  }
+  
+  .MeanButton span {
+    font-size: 21px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: top 0.5s;
+  }
+  
+  .btn-text-one {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  
+  .btn-text-two {
+    position: absolute;
+    width: 100%;
+    top: 150%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  
+  .MeanButton:hover .btn-text-one {
+    top: -100%;
+  }
+  
+  .MeanButton:hover .btn-text-two {
+    top: 50%;
+  }
+  
