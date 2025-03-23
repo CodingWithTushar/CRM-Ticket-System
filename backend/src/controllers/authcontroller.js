@@ -70,7 +70,7 @@ export const login = async (req, res) => {
       });
     }
 
-    generatetoken(user._id , res)
+    generatetoken(`${user._id} `, res)
 
     res.json({
       email: user.email,
@@ -84,4 +84,6 @@ export const login = async (req, res) => {
     });
   }
 };
-export const logout = async () => {};
+export const logout = async (req, res) => {
+
+};
