@@ -48,7 +48,7 @@ const SignUpPage = () => {
       toast.error("Error in Handle Submit");
     }
     if (success === true) {
-      console.log("Hello");
+      toast.success("You have been Sign Up successfully")
     }
   };
 

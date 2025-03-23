@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NavBarButton = ({ text, to }) => {
   return (
-    <Link className="no-underline" to={to}>
+    <Link style={{textDecoration: 'none'}} to={to}>
       <button className="
         hidden lg:flex items-center justify-center
         px-6 py-2.5

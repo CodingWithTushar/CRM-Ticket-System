@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import SideImage from "../components/SideImage";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const [ShowPassoword, setShowPassoword] = useState(false);
@@ -19,7 +20,7 @@ const LoginPage = () => {
   const HandleonSubmit = (e) => {
     e.preventDefault();
 
-    console.log(email, password);
+    toast.success("You have been Log in successfully")
   };
 
   return (

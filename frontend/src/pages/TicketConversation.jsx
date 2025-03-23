@@ -1,16 +1,26 @@
 import React, { useState } from "react";
 import tickets from "../assets/dummy-data.json";
+import { Link, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const TicketConversation = () => {
-  const [reply, setreply] = useState("");
+  const [message, setmessage] = useState("");
 
-  const ticket = tickets[7];
+  const { id } = useParams();
+
+  const ticket = tickets[id];
+
+  if (!ticket) {
+    toast.error(`Ticket does not found`);
+  }
   const currentDate = new Date();
 
-  const handleonSubmit = () => {
+  const handleonSubmit = (e) => {
 
-  }
- 
+    e.preventDefault()
+    alert("Hello")
+    toast.success("Reply sent")
+  };
   return (
     <>
       <div className="h-screen bg-white flex justify-center items-center font-semibold transition-all duration-200">
@@ -18,9 +28,11 @@ const TicketConversation = () => {
           <div className="flex items-center justify-between">
             <div>Ticket Conversation</div>
             <div>
+              <Link style={{textDecoration: "none"}} to={"/home"}>
               <button className="bg-blue-500 w-full text-white py-2 px-4 rounded hover:bg-blue-700 ">
                 Close
               </button>
+              </Link>
             </div>
           </div>
           <div className="flex items-center justify-between mt-3">
@@ -36,47 +48,51 @@ const TicketConversation = () => {
             <div>{ticket.addedAt}</div>
           </div>
 
-          <form onSubmit={handleonSubmit}>
-
-          <div className="flex items-center justify-around mt-3 gap-3">
-            <label>
-              <h6>Client Name</h6>
-              <p>{`${currentDate}`}</p>
-            </label>
-            <div>
+          <form onSubmit={(e) => handleonSubmit(e)}>
+            {message ? (<><div className="flex items-center justify-around mt-3 gap-3">
+              <label>
+                <h6>Client Name</h6>
+                <p>{`${currentDate}`}</p>
+              </label>
+              <div>
+                <textarea
+                  spellCheck={true}
+                  className="lg:w-[700px] font-semibold rounded gap-3 mb-2 border-2 border-gray-300  hover:ring-2 hover:ring-black-400 p-1"
+                  rows={5}
+                ></textarea>
+              </div>
+            </div><div className="flex items-center justify-around mt-3 gap-3">
+                <div>
+                  <textarea
+                    spellCheck={true}
+                    className="lg:w-[700px] font-semibold rounded gap-3 mb-2 border-2 border-gray-300 hover:ring-2 hover:ring-black-400 p-1"
+                    rows={5}
+                  ></textarea>
+                </div>
+                <label>
+                  <h6>Operator Name</h6>
+                  <p>{`${currentDate}`}</p>
+                </label>
+              </div></>) : ""}
+            
+            <div className="flex-col flex gap-1">
+              <label className="text-center font-bold">Reply</label>
+              <p>Please reply your message here or update the ticket</p>
               <textarea
-                spellCheck={true}
-                className="lg:w-[700px] font-semibold rounded gap-3 mb-2 border-2 border-gray-300  hover:ring-2 hover:ring-black-400 p-1"
+                className="lg:w-full font-semibold rounded gap-3 mb-2 border-2 border-gray-300 hover:ring-2 hover:ring-black-400 p-1"
+                onChange={(e) => setmessage(e.target.value)}
+                value={message}
                 rows={5}
               ></textarea>
+              <button
+                type="submit"
+                className="bg-blue-500 w-full text-white py-2 px-4 rounded hover:bg-blue-700 "
+                
+              >
+                Reply
+              </button>
             </div>
-          </div>
-          <div className="flex items-center justify-around mt-3 gap-3">
-            <div>
-              <textarea
-                spellCheck={true}
-                className="lg:w-[700px] font-semibold rounded gap-3 mb-2 border-2 border-gray-300 hover:ring-2 hover:ring-black-400 p-1"
-                rows={5}
-              ></textarea>
-            </div>
-            <label>
-              <h6>Operator Name</h6>
-              <p>{`${currentDate}`}</p>
-            </label>
-          </div>
-          <div className="flex-col flex gap-1">
-          <label className="text-center font-bold mb-3">Reply</label>
-          <textarea
-            className="lg:w-full font-semibold rounded gap-3 mb-2 border-2 border-gray-300 hover:ring-2 hover:ring-black-400 p-1"
-            onChange={(e) => setreply(e.target.value)}
-            value={reply}
-            rows={5}
-          ></textarea>
-          <button type="submit" className="bg-blue-500 w-full text-white py-2 px-4 rounded hover:bg-blue-700 ">
-            Reply
-          </button>
-          </div>
-            </form>
+          </form>
         </div>
       </div>
     </>

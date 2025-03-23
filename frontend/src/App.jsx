@@ -7,12 +7,14 @@ import SignUpPage from "./pages/SignUpPage";
 import NavBar from "./components/NavBar";
 import TicketPage from "./pages/TicketPage";
 import TicketConversation from "./pages/TicketConversation";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-  const authUser = "Tushar"; // Replace this with actual authentication logic
+  const authUser = "Tushar";
 
   return (
     <>
+    <Toaster/>
       <NavBar />
       <Routes>
         <Route path="/home" element={authUser ? <HomePage /> : <Navigate to="/login" />} />
@@ -21,7 +23,7 @@ function App() {
 
         <Route path="/ticketpage" element={authUser ? <TicketPage /> : <Navigate to="/" />} />
 
-        <Route path="/ticketopen" element={authUser ? <TicketConversation /> : <Navigate to="/login" />} />
+        <Route path="/ticketopen/:id" element={authUser ? <TicketConversation /> : <Navigate to="/login" />} />
       </Routes>
     </>
   );

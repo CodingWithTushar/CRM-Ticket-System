@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
 import { FormControl } from "react-bootstrap";
 import tickets from "../assets/dummy-data.json";
 import TicketTable from "../components/TicketTable";
+import toast from "react-hot-toast";
 
 const TicketPage = () => {
   const [formData, setformData] = useState({
@@ -31,7 +31,7 @@ const TicketPage = () => {
   };
   const handleonSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    toast.success("Ticket has been created ")
   };
 
 
@@ -49,11 +49,11 @@ const TicketPage = () => {
           </div>
           <hr />
 
-          <div className="lg:flex lg:justify-between mt-5 ">
+          <div className="lg:flex items-center lg:justify-between mt-5 ">
             <label className="text-xl">Subject</label>
             <input
               type="text"
-              className=" font-semibold rounded mb-4 border border-gray-300 hover:ring-2 hover:ring-black-400 px-2 py-1 lg:w-[700px] w-full mt-2 "
+              className=" font-semibold rounded border border-gray-300 hover:ring-2 hover:ring-black-400 px-2 py-1 lg:w-[700px] w-full mt-2 "
               value={formData.subject}
               required
               minLength={3}
@@ -63,7 +63,7 @@ const TicketPage = () => {
               }
             />
           </div>
-          <div className="lg:flex lg:justify-between mt-3 ">
+          <div className="lg:flex lg:justify-between mt-7 ">
             <label className="text-xl">Issue found</label>
             <textarea
               spellCheck={true}
@@ -71,25 +71,25 @@ const TicketPage = () => {
               rows={3}
               required
               value={formData.issueFound}
-              className="flex items-center justify-center  font-semibold rounded mb-4 border border-gray-300 hover:ring-2 hover:ring-black-400 p-2 mt-2 lg:w-[700px] w-full "
+              className="flex items-center justify-center  font-semibold rounded border border-gray-300 hover:ring-2 hover:ring-black-400 p-2 mt-2 lg:w-[700px] w-full "
               onChange={(e) =>
                 setformData({ ...formData, issueFound: e.target.value })
               }
             />
           </div>
-          <div className="lg:flex lg:justify-between mt-3">
+          <div className="lg:flex lg:justify-between mt-7">
             <label className="text-xl">Created On </label>
             <input
               type="date"
               required
-              className="flex items-center justify-center font-semibold rounded mb-4 border text-black border-gray-300 hover:ring-2 hover:ring-black-400 mt-2 p-2 lg:w-[700px] cursor-pointer w-full"
+              className="flex items-center justify-center font-semibold rounded border text-black border-gray-300 hover:ring-2 hover:ring-black-400 mt-2 p-2 lg:w-[700px] cursor-pointer w-full"
               onChange={(e) =>
                 setformData({ ...formData, createdAt: e.target.value })
               }
               value={formData.createdAt}
             />
           </div>
-          <div className="text-center mt-3 ">
+          <div className="text-center mt-7 ">
             <button
               type="submit"
               className="bg-blue-500 w-full text-white py-2 px-4 rounded hover:bg-blue-700 "
