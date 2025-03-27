@@ -16,7 +16,7 @@ export async function protectRouter(req, res, next) {
         .json({ message: "Unauthorized - No Token Provided" });
     }
 
-    const decodedtoken = jwt.verify(token, JWT_SECRET);
+    const decodedtoken = await jwt.verify(token, JWT_SECRET);
 
     if (!decodedtoken) {
       return res.status(401).json({ message: "Unauthorized - Invalid Token" });
