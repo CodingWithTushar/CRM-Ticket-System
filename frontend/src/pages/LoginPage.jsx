@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "../components/Input";
 import {
+  ArrowPathIcon,
   AtSymbolIcon,
   EyeIcon,
   EyeSlashIcon,
@@ -8,7 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import SideImage from "../components/SideImage";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
 
 const LoginPage = () => {
   const [ShowPassoword, setShowPassoword] = useState(false);
@@ -17,10 +18,11 @@ const LoginPage = () => {
     password: "",
   });
 
-  const HandleonSubmit = (e) => {
-    e.preventDefault();
+  const {login ,isLoggingIn} = useAuth()
 
-    toast.success("You have been Log in successfully")
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    login(formData)
   };
 
   return (
@@ -31,7 +33,7 @@ const LoginPage = () => {
             <h2 className="">Client Log In </h2>
             <p>Continue your journey</p>
 
-            <form onSubmit={HandleonSubmit} className="flex flex-col">
+            <form onSubmit={handleOnSubmit} className="flex flex-col">
               <Input
                 Icons={<AtSymbolIcon className=" w-7 text-gray-400" />}
                 type={"email"}
@@ -72,8 +74,16 @@ const LoginPage = () => {
               <button
                 type="submit"
                 className="btn border-2 bg-black text-white"
+                disabled={isLoggingIn}
               >
-                Log in
+                 {isLoggingIn ? (
+                    <>
+                      <ArrowPathIcon className="animate-spin w-9 h-9 text-gray-400" />
+                      Loading
+                    </>
+                  ) : (
+                    "Log In"
+                  )}
               </button>
               <hr />
               <div className="flex items-center justify-center">

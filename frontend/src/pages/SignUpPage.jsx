@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "../components/Input";
 import {
+  ArrowPathIcon,
   AtSymbolIcon,
   EyeIcon,
   EyeSlashIcon,
@@ -10,6 +11,7 @@ import {
 import SideImage from "../components/SideImage";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
 
 const SignUpPage = () => {
   const [ShowPassword, setShowPassword] = useState(false);
@@ -18,6 +20,8 @@ const SignUpPage = () => {
     email: "",
     password: "",
   });
+
+  const {signup , isSigningUp} = useAuth()
 
   const validateForm = () => {
     if (!formData.fullName.trim()) {
@@ -32,8 +36,8 @@ const SignUpPage = () => {
     if (!formData.password.trim()) {
       return toast.error("Password is Required");
     }
-    if (formData.fullName.length < 6) {
-      return toast.error("Password must have more then 6 characters ");
+    if (!formData.fullName.length > 8) {
+      return toast.error("Password must have more then 8 characters ");
     }
 
     return true;
@@ -48,7 +52,7 @@ const SignUpPage = () => {
       toast.error("Error in Handle Submit");
     }
     if (success === true) {
-      toast.success("You have been Sign Up successfully")
+      signup(formData)
     }
   };
 
@@ -78,9 +82,9 @@ const SignUpPage = () => {
                 value={formData.fullName}
               />
               <Input
+                label={"Email"}
                 Icons={<AtSymbolIcon className=" w-7 text-gray-400" />}
                 type={"email"}
-                label={"Email"}
                 placeholder={"johnwick01@gmail.com "}
                 OnChange={(e) =>
                   setformData({ ...formData, email: e.target.value })
@@ -117,8 +121,16 @@ const SignUpPage = () => {
               <button
                 type="submit"
                 className="btn border-2 bg-black text-white"
+                disabled={isSigningUp}
               >
-                SignUp
+                {isSigningUp ? (
+                <> 
+                  <ArrowPathIcon className="animate-spin w-9 h-9 text-gray-400" />
+                  Loading
+                </>
+              ) : (
+                "Create Account"
+              )}
               </button>
               <hr />
               <div className="flex items-center justify-center">

@@ -22,7 +22,7 @@ export async function protectRouter(req, res, next) {
       return res.status(401).json({ message: "Unauthorized - Invalid Token" });
     }
 
-    const user = await UserModel.findById(decodedtoken.userId).select(
+    const user = await UserModel.findById(decodedtoken.userId.trim()).select(
       "-password"
     );
 

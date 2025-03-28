@@ -5,6 +5,12 @@ export const createTicket = async (req, res) => {
   try {
     const { subject, conversations, clientId } = req.body;
 
+    if (subject.length <2 ) {
+      res.status(400).json({
+        message: "Subject must have more then 2 words"
+      })
+    }
+
     if (!subject || !clientId) {
       res.status(400).json({
         message: "Subject and client ID are required fields",

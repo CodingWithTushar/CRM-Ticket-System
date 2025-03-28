@@ -8,9 +8,10 @@ import NavBar from "./components/NavBar";
 import TicketPage from "./pages/TicketPage";
 import TicketConversation from "./pages/TicketConversation";
 import { Toaster } from "react-hot-toast";
+import useAuth from "./hooks/useAuth";
 
 function App() {
-  const authUser = "Tushar";
+  const {authUser} = useAuth()
 
   return (
     <>

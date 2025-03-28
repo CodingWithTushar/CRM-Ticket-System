@@ -21,7 +21,7 @@ if (process.env.NODE_ENV !== "production") {
   ConnectedDb();
 }
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser())
 
 app.use("/api/v1/user",UserRouter );
