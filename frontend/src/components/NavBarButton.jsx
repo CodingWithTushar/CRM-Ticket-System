@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NavBarButton = ({ text, to }) => {
+const NavBarButton = ({ text, to ,OnClick }) => {
   return (
     <Link style={{textDecoration: 'none'}} to={to}>
       <button className="
@@ -31,7 +31,7 @@ const NavBarButton = ({ text, to }) => {
         before:transition-opacity
         before:duration-300
         group
-      ">
+      "onClick={OnClick}>
         <span className="relative z-10">
           {text}
           <span className="

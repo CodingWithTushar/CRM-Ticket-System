@@ -9,6 +9,7 @@ const TicketSchema = new Schema(
     clientId: { type: ObjectId, required: true },
     subject: { type: String, required: true },
     status: { type: String, required: true },
+    createdAt: {type:Date},
     conversations: [
       {
         sender: {

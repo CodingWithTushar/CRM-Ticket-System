@@ -5,10 +5,10 @@ export const createTicket = async (req, res) => {
   try {
     const { subject, conversations, clientId } = req.body;
 
-    if (subject.length <2 ) {
+    if (subject.length < 2) {
       res.status(400).json({
-        message: "Subject must have more then 2 words"
-      })
+        message: "Subject must have more then 2 words",
+      });
     }
 
     if (!subject || !clientId) {
@@ -75,8 +75,8 @@ export const getAllTickets = async (req, res) => {
 };
 
 export const UpdateTicketById = async (req, res) => {
-  const {_id} = req.params;
-  const { message,sender } = req.body;
+  const { _id } = req.params;
+  const { message, sender } = req.body;
   try {
     if (!_id || !mongoose.Types.ObjectId.isValid(_id)) {
       return res.status(400).json({
@@ -93,14 +93,13 @@ export const UpdateTicketById = async (req, res) => {
     const updateticket = await TicketModel.findOneAndUpdate(
       {
         _id,
-       
       },
       {
-        $push:{
+        $push: {
           conversations: { sender, message },
         },
-        
-        $set: {status: "Updated" ,  updatedAt: Date.now },
+
+        $set: { status: "Updated", updatedAt: Date.now },
       },
       { new: true, runValidators: true }
     );
@@ -124,7 +123,7 @@ export const UpdateTicketById = async (req, res) => {
 
 export const getTicketById = async (req, res) => {
   try {
-    const {_id} = req.params;
+    const { _id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(_id)) {
       res.status(400).json({
         message: "Invalid ticket ID format",

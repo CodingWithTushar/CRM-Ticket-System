@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 import useAuth from "./hooks/useAuth";
 
 function App() {
+  
   const {authUser} = useAuth()
 
   return (
@@ -18,12 +19,10 @@ function App() {
     <Toaster/>
       <NavBar />
       <Routes>
+        <Route path="/" element={!authUser ? <SignUpPage /> : <Navigate to={"/home"}/>} />
         <Route path="/home" element={authUser ? <HomePage /> : <Navigate to="/login" />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<SignUpPage />} />
-
-        <Route path="/ticketpage" element={authUser ? <TicketPage /> : <Navigate to="/" />} />
-
+        <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to={"/home"}/>} />
+        <Route path="/ticketpage" element={authUser ? <TicketPage/> : <Navigate to="/" />} />
         <Route path="/ticketopen/:id" element={authUser ? <TicketConversation /> : <Navigate to="/login" />} />
       </Routes>
     </>

@@ -87,9 +87,7 @@ const LoginPage = () => {
               </button>
               <hr />
               <div className="flex items-center justify-center">
-                <Link className="hover:no-underline" href="/signup">
-                  Create an Account?
-                </Link>
+               <Link to="/">Already Have an Account ?</Link>
               </div>
             </form>
           </div>

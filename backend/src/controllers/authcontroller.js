@@ -63,55 +63,55 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
-
   try {
+    const { email, password } = req.body;
+
     const user = await UserModel.findOne({
       email: email,
     });
 
     if (!user) {
       res.status(401).json({
-        message: "Invalid email or password",
+        message: "User does not Found!",
       });
     }
 
     const comparedPassword = await bcrypt.compare(password, user.password);
 
     if (!comparedPassword) {
-      res.json({
+      res.status(400).json({
         message: "Password does not match",
       });
     }
 
     await generatetoken(user._id, res);
-    res.json({
-      email: user.email,
-      password: user.password,
-      message: "You have log in successfully",
-    });
+
+      res.json({
+        _id: user._id,
+        email: user.email,
+        password: user.password,
+        message: "You have log in successfully",
+      });
   } catch (e) {
-    console.log(`Error Happened While Authorizing User ${e}`);
     res.status(401).json({
-      message: "User UnAuthorized",
+      message: "Error Happened While Authorizing User ${e}",
     });
   }
 };
 
-export const getUsers = async (req , res) => {
-  const user = req.user
+export const getUsers = async (req, res) => {
+  const user = req.user;
   try {
     res.json({
-      user
-    })
-    console.log(user)
+      user,
+    });
+    console.log(user);
   } catch (e) {
     res.status(404).json({
-      message: "User not found"
-    })
+      message: "User not found",
+    });
   }
-
-}
+};
 
 export const logout = async (req, res) => {
   try {
@@ -123,8 +123,8 @@ export const logout = async (req, res) => {
     });
   } catch (e) {
     res.status(500).json({
-      message: `Error happened while loging out the user ${e}`
-    })
-    console.error
+      message: `Error happened while loging out the user ${e}`,
+    });
+    console.error;
   }
 };
