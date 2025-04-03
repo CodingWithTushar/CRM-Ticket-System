@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../components/Input";
 import {
   ArrowPathIcon,
@@ -18,11 +18,11 @@ const LoginPage = () => {
     password: "",
   });
 
-  const {login ,isLoggingIn} = useAuth()
+  const { login, isLoggingIn } = useAuth();
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    login(formData)
+    login(formData);
   };
 
   return (
@@ -76,18 +76,18 @@ const LoginPage = () => {
                 className="btn border-2 bg-black text-white"
                 disabled={isLoggingIn}
               >
-                 {isLoggingIn ? (
-                    <>
-                      <ArrowPathIcon className="animate-spin w-9 h-9 text-gray-400" />
-                      Loading
-                    </>
-                  ) : (
-                    "Log In"
-                  )}
+                {isLoggingIn ? (
+                  <>
+                    <ArrowPathIcon className="animate-spin w-9 h-9 text-gray-400" />
+                    Loading
+                  </>
+                ) : (
+                  "Log In"
+                )}
               </button>
               <hr />
               <div className="flex items-center justify-center">
-               <Link to="/">Already Have an Account ?</Link>
+                <Link to="/">Already Have an Account ?</Link>
               </div>
             </form>
           </div>

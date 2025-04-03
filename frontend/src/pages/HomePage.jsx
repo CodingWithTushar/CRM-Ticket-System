@@ -1,15 +1,34 @@
-import React from "react";
-import tickets from "../assets/dummy-data.json";
+import React, { useEffect, useState } from "react";
 import TicketTable from "../components/TicketTable.jsx";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth.jsx";
 
 const HomePage = () => {
-  const pendingTickets = tickets.filter((row) =>
-    row.status.includes("pending")
-  );
+  const { authUser, getAllTickets } = useAuth();
+  const [tickets, setTickets] = useState({ tickets: [] });
+  const [pendingTicketsCount, setPendingTicketsCount] = useState(0);
+
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const fetchedTickets = await getAllTickets(authUser._id);
+        setTickets(fetchedTickets);
+
+        if (fetchedTickets.tickets) {
+          const pending = fetchedTickets.tickets.filter((row) =>
+            row.status.includes("New")
+          );
+          setPendingTicketsCount(pending.length);
+        }
+      } catch (error) {
+        console.error("Error fetching tickets:", error);
+      }
+    };
+    fetchTickets();
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-6 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 pt-17 pb-6 px-4 sm:px-6 lg:px-8 font-sans">
       <header className="mb-8 text-center">
         <h1 className="text-3xl font-bold text-indigo-800 mb-2">
           Ticket Dashboard
@@ -48,13 +67,13 @@ const HomePage = () => {
             <div className="bg-white p-2 rounded-xl shadow-md flex-1 text-center min-w-[150px]">
               <p className="text-gray-500 text-sm">Total Tickets</p>
               <p className="text-2xl font-bold text-indigo-700">
-                {tickets.length}
+                {tickets.tickets ? tickets.tickets.length : 0}
               </p>
             </div>
             <div className="bg-white p-2 rounded-xl shadow-md flex-1 text-center min-w-[150px]">
               <p className="text-gray-500 text-sm">Pending</p>
               <p className="text-2xl font-bold text-amber-500">
-                {pendingTickets.length}
+                {pendingTicketsCount}
               </p>
             </div>
           </div>
@@ -67,16 +86,14 @@ const HomePage = () => {
             </h2>
           </div>
 
-          {/* Table Header */}
-          <div className="flex justify-between gap-4 p-3 bg-indigo-50 text-indigo-800 font-bold">
+          <div className="flex justify-between p-3 bg-indigo-50 text-indigo-800 font-bold">
             <div className="pl-3">#</div>
-            <div className="">Subject</div>
+            <div className="pl-25">Subject</div>
             <div className="">Status</div>
             <div className="pr-5">Opened Date</div>
           </div>
 
-          {/* Table Content */}
-          <TicketTable tickets={tickets} />
+          <TicketTable />
         </section>
       </main>
     </div>

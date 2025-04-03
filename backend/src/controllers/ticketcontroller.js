@@ -44,10 +44,9 @@ export const createTicket = async (req, res) => {
 
 export const getAllTickets = async (req, res) => {
   try {
+    
     const clientId = req.user._id;
-
-    console.log(clientId);
-
+    
     if (!clientId) {
       res.status(401).json({
         message: "Authentication required to access tickets",
@@ -64,7 +63,7 @@ export const getAllTickets = async (req, res) => {
     }
 
     res.json({
-      tickets: tickets,
+      tickets,
       message: "Tickets retrieved successfully",
     });
   } catch (e) {
@@ -156,8 +155,7 @@ export const closeTicket = async (req, res) => {
     const { _id } = req.params;
     if (!_id || !mongoose.Types.ObjectId.isValid(_id)) {
       res.status(400).json({
-        message: "Valid ticket ID is required",
-        errorCode: "INVALID_TICKET_ID",
+        message: "Valid ticket ID is required"
       });
     }
 
