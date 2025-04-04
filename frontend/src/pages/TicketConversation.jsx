@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
+import emailjs from "@emailjs/browser";
 
 const TicketConversation = () => {
-  const { getticketbyid, deleteticketbyid, closeticketbyid, updateticketbyid } =
+  const {authUser , getticketbyid, deleteticketbyid, closeticketbyid, updateticketbyid } =
     useAuth();
   const { _id } = useParams();
   const [ticket, setTicket] = useState(null);
@@ -42,7 +43,23 @@ const TicketConversation = () => {
         message: message,
         createdAt: new Date(),
       };
-      console.log(formData);
+      const service_id = "service_17u00iy";
+      const template_id = "template_98q95uf";
+      const public_key = "gVegUQDVLTTNf8iq0";
+
+      const templateParams = {
+        from_email: authUser.email,
+        to_name: "Resolve 360",
+        message: message
+      } 
+
+      await emailjs.send(service_id, template_id , templateParams , public_key)
+      .then((response) => {
+          toast.success("Email sent successfully" , response)
+      })
+      .catch((error) => {
+        toast.error("Error in sending email:" , error)
+      })  
 
       await updateticketbyid(_id, formData);
       toast.success("Reply sent successfully");
@@ -68,6 +85,7 @@ const TicketConversation = () => {
     try {
       await closeticketbyid(_id);
       toast.success("Ticket closed successfully");
+
     } catch (error) {
       toast.error(`Error closing ticket: ${error.message}`);
     }
@@ -92,23 +110,25 @@ const TicketConversation = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex justify-center items-center py-8 px-4 font-sans">
       <div className="bg-white rounded-lg w-full max-w-4xl shadow-xl overflow-hidden">
-
         <div className="bg-indigo-600 text-white p-3 flex justify-between items-center">
           <h2 className="text-xl font-bold">Ticket Conversation</h2>
           <div className="flex justify-center items-center gap-3">
+            <Link to="/home">
             <button
               onClick={closeTicket}
               className="bg-blue-500 w-full text-white py-2 px-4 rounded hover:bg-blue-700"
             >
               Close
             </button>
-
-            <button
-              onClick={deleteTicket}
-              className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors"
-            >
-              Delete 
-            </button>
+            </Link>
+            <Link to="/home">
+              <button
+                onClick={deleteTicket}
+                className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors"
+              >
+                Delete
+              </button>
+            </Link>
             <Link to="/home" className="no-underline">
               <button className="bg-blue-500 w-full text-white py-2 px-4 rounded hover:bg-blue-700">
                 Back
@@ -148,7 +168,6 @@ const TicketConversation = () => {
           </div>
         </div>
 
-        
         <div className="p-6 space-y-4 max-h-[210px] overflow-y-auto">
           {ticket.ticket.conversations?.map((conv, index) => (
             <div
@@ -164,7 +183,7 @@ const TicketConversation = () => {
                     : "bg-indigo-100 rounded-tr-none"
                 }`}
               >
-                <div className="flex justify-between items-baseline gap-3">   
+                <div className="flex justify-between items-baseline gap-3">
                   <span className="font-bold">
                     {conv.sender === "Client" ? "Client" : "Support Agent"}
                   </span>

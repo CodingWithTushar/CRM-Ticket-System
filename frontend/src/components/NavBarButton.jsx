@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NavBarButton = ({ text, to ,OnClick }) => {
+const NavBarButton = ({ text, to ,OnClick , title }) => {
   return (
     <Link style={{textDecoration: 'none'}} to={to}>
-      <button className="
+      <button title={title} className="
         hidden lg:flex items-center justify-center
-        px-6 py-2.5
+        px-2 py-1.5
         font-semibold tracking-wide
         bg-gradient-to-r from-blue-500 to-blue-600
         hover:from-blue-600 hover:to-blue-700

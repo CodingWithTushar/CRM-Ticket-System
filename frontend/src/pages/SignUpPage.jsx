@@ -21,7 +21,7 @@ const SignUpPage = () => {
     password: "",
   });
 
-  const {signup , isSigningUp} = useAuth()
+  const { signup, isSigningUp } = useAuth();
 
   const validateForm = () => {
     if (!formData.fullName.trim()) {
@@ -52,7 +52,7 @@ const SignUpPage = () => {
       toast.error("Error in Handle Submit");
     }
     if (success === true) {
-      signup(formData)
+      signup(formData);
     }
   };
 
@@ -108,7 +108,7 @@ const SignUpPage = () => {
                 <button
                   type="button"
                   className="flex justify-center items-center cursor-pointer absolute pr-2"
-                  onClick={() => setShowPassword(!ShowPassword)}
+                  onClick={() => setShowPassword(ShowPassword)}
                 >
                   {ShowPassword ? (
                     <EyeSlashIcon className="w-6 h-6" />
@@ -124,13 +124,13 @@ const SignUpPage = () => {
                 disabled={isSigningUp}
               >
                 {isSigningUp ? (
-                <> 
-                  <ArrowPathIcon className="animate-spin w-9 h-9 text-gray-400" />
-                  Loading
-                </>
-              ) : (
-                "Create Account"
-              )}
+                  <div className="flex items-center justify-center gap-2">
+                    <ArrowPathIcon className="w-5 h-5 animate-spin" />
+                    <span>Signing</span>
+                  </div>
+                ) : (
+                  "Create Account"
+                )}
               </button>
               <hr />
               <div className="flex items-center justify-center">

@@ -56,12 +56,6 @@ export const getAllTickets = async (req, res) => {
       clientId: clientId,
     });
 
-    if (!tickets || tickets.length === 0) {
-      return res.status(404).json({
-        message: "No tickets found for this account",
-      });
-    }
-
     res.json({
       tickets,
       message: "Tickets retrieved successfully",

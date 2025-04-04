@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FormControl } from "react-bootstrap";
 import useAuth from "../hooks/useAuth";
 import { ArrowPathIcon } from "@heroicons/react/24/outline";
 import SearchTicketTable from "../components/SearchTicketTable";
 import toast from "react-hot-toast";
+import emailjs from "@emailjs/browser";
 
 const TicketPage = () => {
   const { createticket, isCreatingTicket, authUser, getAllTickets } = useAuth();
@@ -58,6 +59,18 @@ const TicketPage = () => {
       return;
     }
 
+      const service_id = "service_17u00iy";
+      const template_id = "template_4sk6f2c";
+      const public_key = "gVegUQDVLTTNf8iq0";
+
+    const templateParams = {
+      from_name: formData.subject,
+      from_email: authUser.email,
+      to_name: "Resolve 360",
+      message: message
+    }
+    
+
     const newMessage = {
       sender: "Client",
       message: message,
@@ -72,7 +85,16 @@ const TicketPage = () => {
     };
 
     try {
+     await emailjs.send(service_id, template_id , templateParams , public_key)
+      .then((response) => {
+          toast.success("Email sent successfully" , response)
+      })
+      .catch((error) => {
+        toast.error("Error in sending email:" , error)
+      })
+
       await createticket(ticketData);
+      toast.success("Ticket Created suceessfully")
 
       setformData({
         subject: "",
@@ -105,7 +127,6 @@ const TicketPage = () => {
         </div>
 
         <div className="space-y-6">
-
           <div className="space-y-2">
             <label
               htmlFor="subject"
@@ -159,7 +180,7 @@ const TicketPage = () => {
               type="date"
               id="createdAt"
               name="createdAt"
-              className="w-full px-4 py-3 rounded-lg border border-gray-300/90 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all text-gray-700"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300/90 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all  text-gray-700"
               value={formData.createdAt}
               onChange={handleInputChange}
               required

@@ -28,7 +28,7 @@ const LoginPage = () => {
   return (
     <>
       <div className="h-screen flex justify-center items-center font-semibold transition-all duration-200">
-        <div className="bg-white flex rounded items-center p-9 shadow-xl hover:shadow-2xl gap-9">
+        <div className="bg-white flex rounded items-center p-9 shadow-xl hover:shadow-2xl gap-9 transition-all duration-200">
           <div className="flex flex-col items-center justify-center">
             <h2 className="">Client Log In </h2>
             <p>Continue your journey</p>
@@ -50,7 +50,7 @@ const LoginPage = () => {
                 <LockClosedIcon className="w-9 h-9 text-gray-400" />
                 <input
                   required
-                  type={ShowPassoword ? "password" : "text"}
+                  type={!ShowPassoword ? "password" : "text"}
                   placeholder="Enter Your Password"
                   className="pr-10 pl-3 py-2 font-semibold w-full outline-none "
                   onChange={(e) =>
@@ -78,8 +78,10 @@ const LoginPage = () => {
               >
                 {isLoggingIn ? (
                   <>
-                    <ArrowPathIcon className="animate-spin w-9 h-9 text-gray-400" />
-                    Loading
+                    <div className="flex items-center justify-center gap-2">
+                      <ArrowPathIcon className="w-5 h-5 animate-spin" />
+                      <span>Logging</span>
+                    </div>
                   </>
                 ) : (
                   "Log In"
