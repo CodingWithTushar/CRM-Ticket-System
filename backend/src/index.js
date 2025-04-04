@@ -8,11 +8,13 @@ import { TicketRouter } from "./routes/ticketrouter.js";
 import { handleError } from "./utils/errorHandler.js";
 import { ConnectedDb } from "./lib/db.js";
 import { UserRouter } from "./routes/userrouter.js";
+import path from "path";
 
 dotenv.config();
 const app = express();
-const Port = process.env.PORT;
+const Port = process.env.PORT || 3001;
 const MongoDb = process.env.MONGO_DB;
+const __dirname = path.resolve(); 
 
 mongoose.connect(MongoDb);
 
@@ -20,9 +22,18 @@ if (process.env.NODE_ENV !== "production") {
   app.use(morgan("tiny"));
   ConnectedDb();
 }
+
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser())
+
+if (process.env.NODE_ENV == "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+  app.get("*" , (req , res) => {
+    res.sendFile(path.join(__dirname, "../frontend" , "dist" , "index.html`"))
+  })
+}
 
 app.use("/api/v1/user",UserRouter );
 app.use("/api/v1/ticket", TicketRouter);
