@@ -1,3 +1,7 @@
+If Signup will not Work Log In Credentails are :-
+Tushar7531@gmail.com
+Tushar7531
+
 🛠️ Resolve360 – MERN Stack Support Ticket System
 Welcome to Resolve360, a full-stack MERN application built as a learning project to explore core web development concepts including authentication, RESTful APIs, state management, and real-world CRUD operations.
 
