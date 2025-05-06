@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import { TicketRouter } from "./routes/ticketrouter.js";
 import { handleError } from "./utils/errorHandler.js";
-import { ConnectedDb } from "./lib/db.js";
 import { UserRouter } from "./routes/userrouter.js";
 import path from "path";
 
