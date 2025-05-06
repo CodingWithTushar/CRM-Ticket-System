@@ -20,11 +20,23 @@ mongoose.connect(MongoDb);
 
 if (process.env.NODE_ENV !== "production") {
   app.use(morgan("tiny"));
-  ConnectedDb();
+const MongoDb = process.env.MONGO_DB;
+    try {
+        await mongoose.connect(MongoDb);
+        console.log(`Database Connected to ${MongoDb}`);
+        
+    } catch (e) {
+        console.error;
+        console.log(`Error Happened in Connecting Database ${e}`)
+    }
 }
 
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+const allowedOrigin = process.env.NODE_ENV === 'production'
+  ? "https://resolve360.onrender.com "
+  : "http://localhost:5173";
+
+app.use(cors({ origin: allowedOrigin, credentials: true }));
 app.use(cookieParser())
 
 if (process.env.NODE_ENV == "production") {
