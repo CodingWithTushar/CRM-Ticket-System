@@ -29,7 +29,7 @@ export const protectRouter = async (req, res, next) => {
         message: "User Not Found In Middleware",
       });
     }
-    req.user = user;
+    req.user = user;  
 
     next();
   } catch (e) {

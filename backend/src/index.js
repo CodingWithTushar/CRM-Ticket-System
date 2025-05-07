@@ -14,6 +14,7 @@ const app = express();
 const Port = process.env.PORT || 3001;
 const MongoDb = process.env.MONGO_DB;
 const __dirname = path.resolve(); 
+app.use(express.json());
 
 mongoose.connect(MongoDb);
 
@@ -32,8 +33,8 @@ const MongoDb = process.env.MONGO_DB;
 
 
 app.use("/api/v1/ticket", TicketRouter);
+app.use("/api/v1/user",UserRouter );
 
-app.use(express.json());
 const allowedOrigin = process.env.NODE_ENV === 'production'
   ? "https://resolve360.onrender.com"
   : "http://localhost:5173";
@@ -49,7 +50,6 @@ if (process.env.NODE_ENV == "production") {
   })
 }
 
-app.use("/api/v1/user",UserRouter );
 
 
 
