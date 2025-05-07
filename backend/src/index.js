@@ -30,7 +30,7 @@ const MongoDb = process.env.MONGO_DB;
     }
 }
 
-app.use("/api/v1/user",UserRouter );
+
 app.use("/api/v1/ticket", TicketRouter);
 
 app.use(express.json());
@@ -48,6 +48,8 @@ if (process.env.NODE_ENV == "production") {
     res.sendFile(path.join(__dirname, "../frontend" , "dist" , "index.html"))
   })
 }
+
+app.use("/api/v1/user",UserRouter );
 
 
 
