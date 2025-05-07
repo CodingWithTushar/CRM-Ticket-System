@@ -30,9 +30,12 @@ const MongoDb = process.env.MONGO_DB;
     }
 }
 
+app.use("/api/v1/user",UserRouter );
+app.use("/api/v1/ticket", TicketRouter);
+
 app.use(express.json());
 const allowedOrigin = process.env.NODE_ENV === 'production'
-  ? "https://resolve360.onrender.com "
+  ? "https://resolve360.onrender.com"
   : "http://localhost:5173";
 
 app.use(cors({ origin: allowedOrigin, credentials: true }));
@@ -46,8 +49,7 @@ if (process.env.NODE_ENV == "production") {
   })
 }
 
-app.use("/api/v1/user",UserRouter );
-app.use("/api/v1/ticket", TicketRouter);
+
 
 app.use((req, res, next) => {
   const error = new Error("Resources  not found!");

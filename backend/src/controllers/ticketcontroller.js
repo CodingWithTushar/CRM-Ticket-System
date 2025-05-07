@@ -44,7 +44,7 @@ export const createTicket = async (req, res) => {
 
 export const getAllTickets = async (req, res) => {
   try {
-    
+      
     const clientId = req.user._id;
     
     if (!clientId) {
