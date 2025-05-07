@@ -32,19 +32,19 @@ const MongoDb = process.env.MONGO_DB;
 }
 
 
-app.use("/api/v1/ticket", TicketRouter);
-app.use("/api/v1/user",UserRouter );
 
 const allowedOrigin = process.env.NODE_ENV === 'production'
-  ? "https://resolve360.onrender.com"
-  : "http://localhost:5173";
+? "https://resolve360.onrender.com"
+: "http://localhost:5173";
 
 app.use(cors({ origin: allowedOrigin, credentials: true }));
 app.use(cookieParser())
 
+app.use("/api/v1/ticket", TicketRouter);
+app.use("/api/v1/user",UserRouter );
 if (process.env.NODE_ENV == "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
+  
   app.get("*" , (req , res) => {
     res.sendFile(path.join(__dirname, "../frontend" , "dist" , "index.html"))
   })
