@@ -120,7 +120,7 @@ This project was created to consolidate my learning of the MERN stack and to bui
 📬 Contact
 Feel free to reach out for suggestions or collaborations!
 
-📧 Email: tushard3998@gmail.com
+📧 Email: tusharwebdev007@gmail.com
 
 📄 License
 This project is open-source and available under the MIT License.
