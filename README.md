@@ -124,5 +124,3 @@ Feel free to reach out for suggestions or collaborations!
 
 📄 License
 This project is open-source and available under the MIT License.
-
-Let me know if you want me to help you generate a badge section, add screenshots, or create a short video demo section too!
